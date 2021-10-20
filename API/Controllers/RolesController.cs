@@ -67,5 +67,17 @@ namespace API.Controllers
 
             return BadRequest(result.Message);
         }
+
+        [HttpPost("delete")]
+        public IActionResult Delete(Role role)
+        {
+            var result = _roleService.Delete(role);
+            if (result.Succes)
+            {
+                return Ok(result.Message);
+            }
+
+            return BadRequest(result.Message);
+        }
     }
 }

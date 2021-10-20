@@ -67,5 +67,17 @@ namespace API.Controllers
 
             return BadRequest(result.Message);
         }
+        
+        [HttpPost("delete")]
+        public IActionResult Delete(Sale sale)
+        {
+            var result = _saleService.Delete(sale);
+            if (result.Succes)
+            {
+                return Ok(result.Message);
+            }
+
+            return BadRequest(result.Message);
+        }
     }
 }
