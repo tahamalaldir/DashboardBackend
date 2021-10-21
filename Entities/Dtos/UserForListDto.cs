@@ -8,7 +8,7 @@ using Entities.Concrete;
 
 namespace Entities.Dtos
 {
-    public class UserForListDto:IDto
+    public class UserForListDto : IDto
     {
         public int Id { get; set; }
         public string Name { get; set; }

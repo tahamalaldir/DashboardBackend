@@ -4,8 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Business.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 
 namespace API.Controllers
 {
@@ -14,19 +16,22 @@ namespace API.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public UsersController(IUserService userService)
+        public UsersController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpGet("getall")]
         public IActionResult GetList()
         {
             var result = _userService.GetList();
+            var usersReturn = _mapper.Map<List<UserForListDto>>(result.Data);
             if (result.Succes)
             {
-                return Ok(result.Data);
+                return Ok(usersReturn);
             }
 
             return BadRequest(result.Message);
@@ -36,9 +41,10 @@ namespace API.Controllers
         public IActionResult GetById(int userId)
         {
             var result = _userService.GetById(userId);
+            var usersReturn = _mapper.Map<UserForListDto>(result.Data);
             if (result.Succes)
             {
-                return Ok(result.Data);
+                return Ok(usersReturn);
             }
 
             return BadRequest(result.Message);

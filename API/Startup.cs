@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using API.Helpers;
 using DataAccess.Security.Encyption;
 using DataAccess.Security.Jwt;
 using Microsoft.IdentityModel.Tokens;
@@ -38,6 +39,7 @@ namespace API
                     builder => builder.WithOrigins("http://localhost:8080"));
             });
 
+            services.AddAutoMapper(typeof(AutoMapperProfiles));
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
