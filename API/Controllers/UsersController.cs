@@ -11,19 +11,19 @@ namespace API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RolesController : ControllerBase
+    public class UsersController : ControllerBase
     {
-        private readonly IRoleService _roleService;
+        private readonly IUserService _userService;
 
-        public RolesController(IRoleService roleService)
+        public UsersController(IUserService userService)
         {
-            _roleService = roleService;
+            _userService = userService;
         }
 
         [HttpGet("getall")]
         public IActionResult GetList()
         {
-            var result = _roleService.GetList();
+            var result = _userService.GetList();
             if (result.Succes)
             {
                 return Ok(result.Data);
@@ -33,9 +33,9 @@ namespace API.Controllers
         }
 
         [HttpGet("getbyid")]
-        public IActionResult GetById(int roleId)
+        public IActionResult GetById(int userId)
         {
-            var result = _roleService.GetById(roleId);
+            var result = _userService.GetById(userId);
             if (result.Succes)
             {
                 return Ok(result.Data);
@@ -45,9 +45,9 @@ namespace API.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult Add(Role role)
+        public IActionResult Add(User user)
         {
-            var result = _roleService.Add(role);
+            var result = _userService.Add(user);
             if (result.Succes)
             {
                 return Ok(result.Message);
@@ -57,9 +57,9 @@ namespace API.Controllers
         }
 
         [HttpPost("update")]
-        public IActionResult Update(Role role)
+        public IActionResult Update(User user)
         {
-            var result = _roleService.Update(role);
+            var result = _userService.Update(user);
             if (result.Succes)
             {
                 return Ok(result.Message);
@@ -69,9 +69,9 @@ namespace API.Controllers
         }
 
         [HttpPost("delete")]
-        public IActionResult Delete(Role role)
+        public IActionResult Delete(User user)
         {
-            var result = _roleService.Delete(role);
+            var result = _userService.Delete(user);
             if (result.Succes)
             {
                 return Ok(result.Message);

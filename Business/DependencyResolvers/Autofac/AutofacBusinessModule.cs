@@ -7,8 +7,8 @@ using Autofac;
 using Business.Abstract;
 using Business.Concrete;
 using DataAccess.Abstract;
-using DataAccess.Concrete;
 using DataAccess.Concrete.EntityFramework;
+using DataAccess.Security.Jwt;
 
 namespace Business.DependencyResolvers.Autofac
 {
@@ -27,6 +27,12 @@ namespace Business.DependencyResolvers.Autofac
 
             builder.RegisterType<RoleManager>().As<IRoleService>();
             builder.RegisterType<EfRoleDal>().As<IRoleDal>();
+
+            builder.RegisterType<UserManager>().As<IUserService>();
+            builder.RegisterType<EfUserDal>().As<IUserDal>();
+
+            builder.RegisterType<AuthManager>().As<IAuthService>();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
         }
     }
     
