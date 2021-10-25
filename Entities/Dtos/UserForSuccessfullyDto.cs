@@ -17,6 +17,7 @@ namespace Entities.Dtos
         public string Email { get; set; }
         public Boolean IsApproved { get; set; }
         public int RoleId { get; set; }
+        public string Message { get; set; }
         public string Token { get; set; }
     }
 }

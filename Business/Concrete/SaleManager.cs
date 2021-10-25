@@ -22,7 +22,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Sale>> GetList()
         {
-            return new SuccessDataResult<List<Sale>>(_saleDal.GetList().ToList());
+            return new SuccessDataResult<List<Sale>>(_saleDal.GetList(includeProperties:p=>p.Customer).ToList());
         }
 
         public IDataResult<Sale> GetById(int saleId)

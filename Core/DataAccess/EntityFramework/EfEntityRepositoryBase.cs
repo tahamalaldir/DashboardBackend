@@ -13,21 +13,46 @@ namespace Core.DataAccess.EntityFramework
         where TEntity : class, IEntity, new()
         where TContext : DbContext, new()
     {
-        public TEntity Get(Expression<Func<TEntity, bool>> filter)
+        public TEntity Get(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             using (var context = new TContext())
             {
-                return context.Set<TEntity>().SingleOrDefault(filter);
+                IQueryable<TEntity> query = context.Set<TEntity>();
+
+                if (includeProperties.Any())
+                {
+                    foreach (var includeProperty in includeProperties)
+                    {
+                        query = query.Include(includeProperty);
+                    }
+                }
+
+                return query.SingleOrDefault(filter);
+                //return context.Set<TEntity>().SingleOrDefault(filter);
             }
         }
 
-        public IList<TEntity> GetList(Expression<Func<TEntity, bool>> filter = null)
+        public List<TEntity> GetList(Expression<Func<TEntity, bool>> filter = null, params Expression<Func<TEntity, object>>[] includeProperties)
         {
             using (var context = new TContext())
             {
-                return filter == null
-                    ? context.Set<TEntity>().ToList()
-                    : context.Set<TEntity>().Where(filter).ToList();
+                IQueryable<TEntity> query = context.Set<TEntity>();
+                if (filter != null)
+                {
+                    query = query.Where(filter);
+                }
+
+                if (includeProperties.Any())
+                {
+                    foreach (var includeProperty in includeProperties)
+                    {
+                        query = query.Include(includeProperty);
+                    }
+                }
+                return query.ToList();
+                //return filter == null
+                //    ? context.Set<TEntity>().ToList()
+                //    : context.Set<TEntity>().Where(filter).ToList();
             }
         }
 

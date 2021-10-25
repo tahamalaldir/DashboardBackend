@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Business.Abstract;
 using Entities.Dtos;
 
@@ -40,6 +41,7 @@ namespace API.Controllers
                     Lastname = userToLogin.Data.Lastname,
                     IsApproved = userToLogin.Data.IsApproved,
                     RoleId = userToLogin.Data.RoleId,
+                    Message = result.Message,
                     Token = result.Data.Token
                 };
                 return Ok(returnUser);

@@ -28,7 +28,7 @@ namespace Business.Concrete
 
         public IDataResult<User> GetById(int userId)
         {
-            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == userId));
+            return new SuccessDataResult<User>(_userDal.Get(u => u.Id == userId,includeProperties:u=>u.Role));
         }
 
         IResult IUserService.Add(User user)
@@ -61,7 +61,7 @@ namespace Business.Concrete
 
         public IDataResult<List<User>> GetList()
         {
-            return new SuccessDataResult<List<User>>(_userDal.GetList().ToList());
+            return new SuccessDataResult<List<User>>(_userDal.GetList(includeProperties:u=>u.Role).ToList());
         }
 
         public User GetUserById(int userId)
